@@ -1,1829 +1,3728 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>نظام أوامر العمل | نسخة تجريبية</title>
 
 <style>
+
 :root{
-  --bg:#f4f7fb;
-  --card:#fff;
-  --ink:#162235;
-  --muted:#6b778c;
-  --primary:#155eef;
-  --line:#e6ebf2;
-  --ok:#0f9d6e;
-  --warn:#d98b00;
-  --danger:#d64545
+--bg:#f4f7fb;
+--card:#fff;
+--ink:#162235;
+--muted:#6b778c;
+--primary:#155eef;
+--line:#e6ebf2;
+--ok:#0f9d6e;
+--warn:#d98b00;
+--danger:#d64545;
 }
 
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+}
 
 body{
-  margin:0;
-  background:var(--bg);
-  font-family:Tahoma,Arial,sans-serif;
-  color:var(--ink)
+margin:0;
+background:var(--bg);
+font-family:Tahoma,Arial,sans-serif;
+color:var(--ink);
 }
 
-button,input,select,textarea{
-  font:inherit
+button,
+input,
+select,
+textarea{
+font:inherit;
 }
 
 button{
-  cursor:pointer
+cursor:pointer;
 }
 
 .top{
-  height:68px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  position:sticky;
-  top:0;
-  z-index:10
+height:68px;
+background:#fff;
+border-bottom:1px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 28px;
+position:sticky;
+top:0;
+z-index:10;
 }
 
 .brand{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  font-weight:800
+display:flex;
+gap:12px;
+align-items:center;
+font-weight:800;
 }
 
 .logo{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  background:var(--primary);
-  color:#fff;
-  display:grid;
-  place-items:center
+width:40px;
+height:40px;
+border-radius:12px;
+background:var(--primary);
+color:#fff;
+display:grid;
+place-items:center;
 }
 
 .user{
-  color:var(--muted);
-  font-size:13px
+color:var(--muted);
+font-size:13px;
 }
 
 .layout{
-  display:flex;
-  min-height:calc(100vh - 68px)
+display:flex;
+min-height:calc(100vh - 68px);
 }
 
 .side{
-  width:245px;
-  background:#111b2d;
-  color:#dfe7f5;
-  padding:22px 14px
+width:245px;
+background:#111b2d;
+color:#dfe7f5;
+padding:22px 14px;
 }
 
 .side h4{
-  margin:0 10px 18px;
-  color:#fff
+margin:0 10px 18px;
+color:#fff;
 }
 
 .nav{
-  padding:12px 14px;
-  border-radius:10px;
-  margin:5px 0;
-  display:block;
-  color:#cdd7e8
+padding:12px 14px;
+border-radius:10px;
+margin:5px 0;
+display:block;
+color:#cdd7e8;
+cursor:pointer;
 }
 
 .nav.active,
 .nav:hover{
-  background:#203253;
-  color:#fff
+background:#203253;
+color:#fff;
 }
 
 .main{
-  flex:1;
-  padding:28px;
-  max-width:1250px;
-  margin:auto;
-  width:100%
+flex:1;
+padding:28px;
+max-width:1250px;
+margin:auto;
+width:100%;
 }
 
 .hero{
-  background:linear-gradient(135deg,#155eef,#254a9d);
-  color:#fff;
-  border-radius:20px;
-  padding:26px;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  align-items:center;
-  margin-bottom:22px
+background:linear-gradient(135deg,#155eef,#254a9d);
+color:#fff;
+border-radius:20px;
+padding:26px;
+display:flex;
+justify-content:space-between;
+gap:20px;
+align-items:center;
+margin-bottom:22px;
 }
 
 .hero h1{
-  margin:0 0 8px;
-  font-size:26px
+margin:0 0 8px;
+font-size:26px;
 }
 
 .hero p{
-  margin:0;
-  color:#dfe9ff
+margin:0;
+color:#dfe9ff;
 }
 
 .hero .pill{
-  background:rgba(255,255,255,.15);
-  padding:10px 14px;
-  border-radius:12px;
-  font-size:13px
+background:rgba(255,255,255,.15);
+padding:10px 14px;
+border-radius:12px;
+font-size:13px;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
 }
 
 .stat,
 .card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:18px;
 }
 
 .stat b{
-  font-size:27px
+font-size:27px;
 }
 
 .stat small{
-  display:block;
-  color:var(--muted);
-  margin-top:5px
+display:block;
+color:var(--muted);
+margin-top:5px;
 }
 
 .section{
-  margin-top:20px
+margin-top:20px;
 }
 
 .section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+gap:10px;
 }
 
 .section-title h2{
-  font-size:18px;
-  margin:0
+font-size:18px;
+margin:0;
 }
 
 .btn{
-  border:0;
-  border-radius:10px;
-  padding:11px 16px;
-  background:var(--primary);
-  color:#fff;
-  font-weight:700
+border:0;
+border-radius:10px;
+padding:11px 16px;
+background:var(--primary);
+color:#fff;
+font-weight:700;
 }
 
 .btn.secondary{
-  background:#edf3ff;
-  color:#155eef
+background:#edf3ff;
+color:#155eef;
 }
 
 .btn.danger{
-  background:#fff0f0;
-  color:#c33
+background:#fff0f0;
+color:#c33;
+}
+
+.btn.success{
+background:#e6f8f1;
+color:#087957;
+}
+
+.btn.warning{
+background:#fff5db;
+color:#9a6500;
 }
 
 .btn:disabled{
-  opacity:.5;
-  cursor:not-allowed
+opacity:.5;
+cursor:not-allowed;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff
+width:100%;
+border-collapse:collapse;
+background:#fff;
 }
 
 .table-wrap{
-  border:1px solid var(--line);
-  border-radius:16px;
-  overflow:auto
+border:1px solid var(--line);
+border-radius:16px;
+overflow:auto;
 }
 
-.table th,
-.table td,
 th,
 td{
-  padding:13px 12px;
-  border-bottom:1px solid var(--line);
-  text-align:right;
-  font-size:13px
+padding:13px 12px;
+border-bottom:1px solid var(--line);
+text-align:right;
+font-size:13px;
+white-space:nowrap;
 }
 
 th{
-  color:var(--muted);
-  background:#fafbfd
+color:var(--muted);
+background:#fafbfd;
 }
 
 .badge{
-  display:inline-block;
-  padding:6px 9px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:700
+display:inline-block;
+padding:6px 9px;
+border-radius:999px;
+font-size:11px;
+font-weight:700;
 }
 
 .b-blue{
-  background:#eaf1ff;
-  color:#155eef
+background:#eaf1ff;
+color:#155eef;
 }
 
 .b-yellow{
-  background:#fff5db;
-  color:#9a6500
+background:#fff4cc;
+color:#9a6500;
 }
 
 .b-green{
-  background:#e6f8f1;
-  color:#087957
+background:#e4f7ed;
+color:#087957;
 }
 
 .b-gray{
-  background:#edf0f5;
-  color:#596579
+background:#edf0f5;
+color:#596579;
+}
+
+.b-red{
+background:#ffe8e8;
+color:#c62828;
 }
 
 .login{
-  min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:20px;
-  background:linear-gradient(135deg,#0f1d34,#155eef)
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:20px;
+background:linear-gradient(135deg,#0f1d34,#155eef);
 }
 
 .login-card{
-  width:min(470px,100%);
-  background:#fff;
-  border-radius:24px;
-  padding:30px;
-  box-shadow:0 20px 70px rgba(0,0,0,.2)
+width:min(470px,100%);
+background:#fff;
+border-radius:24px;
+padding:30px;
+box-shadow:0 20px 70px rgba(0,0,0,.2);
 }
 
 .login-card h1{
-  margin:0 0 7px
+margin:0 0 7px;
 }
 
 .login-card p{
-  color:var(--muted);
-  margin-top:0
+color:var(--muted);
+margin-top:0;
 }
 
 .field{
-  margin:14px 0
+margin:14px 0;
 }
 
 .field label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:7px
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:7px;
 }
 
 .field input,
 .field select,
 .field textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #d9e0ea;
-  border-radius:10px;
-  background:#fff;
-  outline:none
+width:100%;
+padding:12px;
+border:1px solid #d9e0ea;
+border-radius:10px;
+background:#fff;
+outline:none;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+border-color:var(--primary);
 }
 
 .field textarea{
-  min-height:100px;
-  resize:vertical
+min-height:100px;
+resize:vertical;
 }
 
 .hint{
-  background:#f6f8fb;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  font-size:12px;
-  color:var(--muted);
-  margin:14px 0
+background:#f6f8fb;
+border:1px solid var(--line);
+border-radius:12px;
+padding:12px;
+font-size:12px;
+color:var(--muted);
+margin:14px 0;
 }
 
 .form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 }
 
 .full{
-  grid-column:1/-1
-}
-
-.checks{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px
-}
-
-.check{
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:10px;
-  background:#fafbfd
+grid-column:1/-1;
 }
 
 .preview{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:10px;
 }
 
 .preview img{
-  width:120px;
-  height:90px;
-  object-fit:cover;
-  border-radius:10px;
-  border:1px solid var(--line)
+width:120px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+border:1px solid var(--line);
 }
 
 .modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:20
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:20;
 }
 
 .modal{
-  background:#fff;
-  border-radius:18px;
-  padding:22px;
-  width:min(760px,100%);
-  max-height:90vh;
-  overflow:auto
+background:#fff;
+border-radius:18px;
+padding:22px;
+width:min(760px,100%);
+max-height:90vh;
+overflow:auto;
 }
 
 .modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .x{
-  border:0;
-  background:#eef2f7;
-  border-radius:9px;
-  padding:7px 11px
+border:0;
+background:#eef2f7;
+border-radius:9px;
+padding:7px 11px;
+font-size:20px;
 }
 
 .timeline{
-  border-right:3px solid #dbe5f8;
-  padding-right:15px
+border-right:3px solid #dbe5f8;
+padding-right:15px;
 }
 
 .step{
-  margin:0 0 18px;
-  position:relative
+margin:0 0 18px;
+position:relative;
 }
 
 .step:before{
-  content:"";
-  position:absolute;
-  right:-23px;
-  top:2px;
-  width:12px;
-  height:12px;
-  background:#155eef;
-  border-radius:50%;
-  border:3px solid #fff
+content:"";
+position:absolute;
+right:-23px;
+top:2px;
+width:12px;
+height:12px;
+background:#155eef;
+border-radius:50%;
+border:3px solid #fff;
 }
 
 .step small{
-  color:var(--muted)
+color:var(--muted);
 }
 
 .step b{
-  display:block;
-  margin:4px 0
+display:block;
+margin:4px 0;
 }
 
 .notice{
-  padding:12px;
-  border-radius:12px;
-  background:#fff8e6;
-  color:#795900;
-  border:1px solid #f4df9e;
-  font-size:13px
+padding:12px;
+border-radius:12px;
+background:#fff8e6;
+color:#795900;
+border:1px solid #f4df9e;
+font-size:13px;
+margin-bottom:15px;
+}
+
+.notice.success{
+background:#eafaf3;
+color:#087957;
+border-color:#bcebd8;
+}
+
+.notice.danger{
+background:#fff0f0;
+color:#b42323;
+border-color:#f3c0c0;
+}
+
+.signature-box{
+margin-top:15px;
+}
+
+#signaturePad{
+width:100%;
+height:250px;
+border:2px dashed #ccd5e2;
+border-radius:12px;
+background:#fff;
+touch-action:none;
+display:block;
+}
+
+.status-card{
+border:1px solid var(--line);
+border-radius:14px;
+padding:15px;
+margin:12px 0;
+}
+
+.status-flow{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+align-items:center;
+}
+
+.arrow{
+color:#9aa6b8;
+font-weight:bold;
+}
+
+.signature-image{
+max-width:300px;
+width:100%;
+border:1px solid #ddd;
+border-radius:10px;
+background:#fff;
+margin-top:10px;
 }
 
 @media(max-width:900px){
-  .side{
-    display:none
-  }
 
-  .grid{
-    grid-template-columns:repeat(2,1fr)
-  }
-
-  .form-grid{
-    grid-template-columns:1fr
-  }
-
-  .checks{
-    grid-template-columns:1fr 1fr
-  }
+.side{
+display:none;
 }
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.hero{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+@media(max-width:600px){
+
+.top{
+padding:0 12px;
+}
+
+.user{
+font-size:11px;
+}
+
+.main{
+padding:15px;
+}
+
+.grid{
+grid-template-columns:1fr 1fr;
+}
+
+.stat{
+padding:13px;
+}
+
+.stat b{
+font-size:22px;
+}
+
+th,
+td{
+font-size:11px;
+padding:10px 8px;
+}
+
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div id="app"></div>
 
 <div class="modal-bg" id="modal">
-  <div class="modal" id="modalBody"></div>
+
+<div class="modal" id="modalBody"></div>
+
 </div>
+
 
 <script>
 
+/* =========================================================
+الأقسام الفنية
+========================================================= */
+
 const cats=[
-  "السباكة",
-  "النجارة",
-  "الدهانات",
-  "الكهرباء",
-  "التبريد والتكييف",
-  "الميكانيكية",
-  "ميكانيكا السيارات",
-  "الغازات الطبية",
-  "الأعطال الإلكترونية"
+
+"السباكة",
+"النجارة",
+"الدهانات",
+"الكهرباء",
+"التبريد والتكييف",
+"الميكانيكية",
+"ميكانيكا السيارات",
+"الغازات الطبية",
+"الأعطال الإلكترونية"
+
 ];
+
+
+/* =========================================================
+أقسام المستشفى
+========================================================= */
 
 const depts=[
-  "الأشعة",
-  "الطوارئ",
-  "العناية المركزة",
-  "المناظير",
-  "العيادات الخارجية",
-  "المختبر",
-  "الصيدلية",
-  "التنويم"
+
+"الأشعة",
+"الطوارئ",
+"العناية المركزة",
+"المناظير",
+"العيادات الخارجية",
+"المختبر",
+"الصيدلية",
+"التنويم"
+
 ];
 
 
-/* =========================
-   المستخدمون والرقم السري
-========================= */
+/* =========================================================
+المستخدمون
+========================================================= */
 
 const mockUsers={
 
-  "1001":{
-    name:"بندر الشمراني",
-    dept:"الأشعة",
-    areas:["الأشعة"],
-    password:"12345"
-  },
+"1001":{
 
-  "1002":{
-    name:"خالد سالم",
-    dept:"الأشعة",
-    areas:["الأشعة وقسم الأشعة الطبية"],
-    password:"123456"
-  },
+name:"بندر الشمراني",
+dept:"الأشعة",
+areas:["الأشعة"],
+password:"12345"
 
-  "1003":{
-    name:"خالد سالم",
-    dept:"العناية المركزة",
-    areas:["العناية المركزة"],
-    password:"1234567"
-  },
+},
 
-  "01":{
-    name:"سامي أحمد فرحة",
-    dept:"مدير إدارة الصيانة العامة",
-    areas:depts,
-    admin:true,
-    password:"12345678"
-  },
+"1002":{
 
-  "02":{
-    name:"مشعل سلطان البلادي",
-    dept:"نائب مدير إدارة الصيانة العامة",
-    areas:depts,
-    admin:true,
-    password:"123456789"
-  },
-  
-  '51572478':{
-    name:"محمد سعيد الشهري",
-    dept:"مدير إدارة التجهيزات ",
-    areas:["الأشعة","العناية المركزة","المناظير","العيادات الخارجية","المختبر","الصيدلية","التنويم"],
-    password:"1234567890"
-  },
+name:"خالد سالم",
+dept:"الأشعة",
+areas:["الأشعة"],
+password:"123456"
 
-  '03':{
-    name:"محمد طاهر مقبل",
-    dept:"مساعد المشرف العام للشؤون الهندسية ",
-    areas:["الأشعة","العناية المركزة","المناظير","العيادات الخارجية","المختبر","الصيدلية","التنويم"],
-    password:"1122334455"
-  }
+},
+
+"1003":{
+
+name:"خالد سالم",
+dept:"العناية المركزة",
+areas:["العناية المركزة"],
+password:"1234567"
+
+},
+
+"01":{
+
+name:"سامي أحمد فرحة",
+dept:"مدير إدارة الصيانة العامة",
+areas:depts,
+admin:true,
+password:"12345678"
+
+},
+
+"02":{
+
+name:"مشعل سلطان البلادي",
+dept:"نائب مدير إدارة الصيانة العامة",
+areas:depts,
+admin:true,
+password:"123456789"
+
+},
+
+"51572478":{
+
+name:"محمد سعيد الشهري",
+dept:"مدير إدارة التجهيزات",
+areas:[
+"الأشعة",
+"العناية المركزة",
+"المناظير",
+"العيادات الخارجية",
+"المختبر",
+"الصيدلية",
+"التنويم"
+],
+password:"1234567890"
+
+},
+
+"03":{
+
+name:"محمد طاهر مقبل",
+dept:"مساعد المشرف العام للشؤون الهندسية",
+areas:[
+"الأشعة",
+"العناية المركزة",
+"المناظير",
+"العيادات الخارجية",
+"المختبر",
+"الصيدلية",
+"التنويم"
+],
+password:"1122334455"
+
+},
+
+
+/* =====================================================
+حساب ضابط الاتصال
+===================================================== */
+
+"04":{
+
+name:"ضابط الاتصال",
+dept:"ضابط الاتصال",
+areas:depts,
+officer:true,
+password:"123456"
+
+}
+
 };
 
 
-/* =========================
-   حالة النظام
-========================= */
+/* =========================================================
+حالة النظام
+========================================================= */
 
 let state={
-  user:null,
-  tickets:JSON.parse(localStorage.getItem("tickets")||"[]")
+
+user:null,
+
+tickets:JSON.parse(
+localStorage.getItem("tickets") || "[]"
+)
+
 };
 
 
-/* =========================
-   حفظ البيانات
-========================= */
+/* =========================================================
+متغيرات التوقيع
+========================================================= */
+
+let signatureCanvas=null;
+let signatureCtx=null;
+let drawing=false;
+
+
+/* =========================================================
+حفظ البيانات
+========================================================= */
 
 function save(){
-  localStorage.setItem(
-    "tickets",
-    JSON.stringify(state.tickets)
-  );
+
+localStorage.setItem(
+"tickets",
+JSON.stringify(state.tickets)
+);
+
 }
 
 
-/* =========================
-   تشغيل التطبيق
-========================= */
+/* =========================================================
+تشغيل التطبيق
+========================================================= */
 
 function app(){
 
-  if(!state.user){
-    login();
-    return;
-  }
+if(!state.user){
 
-  shell();
-  dashboard();
+login();
+
+return;
+
+}
+
+shell();
+
+dashboard();
+
 }
 
 
-/* =========================
-   شاشة تسجيل الدخول
-========================= */
+/* =========================================================
+تسجيل الدخول
+========================================================= */
 
 function login(){
 
-  document.getElementById("app").innerHTML=`
+document.getElementById("app").innerHTML=`
 
-    <div class="login">
+<div class="login">
 
-      <div class="login-card">
+<div class="login-card">
 
-        <div class="logo">⚙</div>
+<div class="logo">
+⚙
+</div>
 
-        <h1>نظام أوامر العمل</h1>
+<h1>
+نظام أوامر العمل
+</h1>
 
-        <p>نسخة تجريبية</p>
-
-
-        <div class="field">
-
-          <label>الرقم الوظيفي</label>
-
-          <input
-            id="emp"
-            inputmode="numeric"
-            placeholder="أدخل الرقم الوظيفي"
-          >
-
-        </div>
+<p>
+تسجيل الدخول إلى النظام
+</p>
 
 
-        <div class="field">
+<div class="field">
 
-          <label>الرقم السري</label>
+<label>
+الرقم الوظيفي
+</label>
 
-          <input
-            id="pw"
-            type="password"
-            placeholder="أدخل الرقم السري"
-            required
-          >
+<input
+id="emp"
+inputmode="numeric"
+placeholder="أدخل الرقم الوظيفي"
+onkeydown="if(event.key==='Enter') doLogin()"
+>
 
-        </div>
+</div>
 
 
-        <button
-          class="btn"
-          style="width:100%"
-          onclick="doLogin()"
-        >
-          تسجيل الدخول
-        </button>
+<div class="field">
 
-      </div>
+<label>
+الرقم السري
+</label>
 
-    </div>
+<input
+id="pw"
+type="password"
+placeholder="أدخل الرقم السري"
+onkeydown="if(event.key==='Enter') doLogin()"
+>
 
-  `;
+</div>
+
+
+<button
+class="btn"
+style="width:100%"
+onclick="doLogin()"
+>
+تسجيل الدخول
+</button>
+
+
+<div class="hint">
+
+<b>للتجربة:</b>
+
+<br><br>
+
+حساب الموظف:
+<br>
+الرقم الوظيفي: 1001
+<br>
+الرقم السري: 12345
+
+<br><br>
+
+حساب ضابط الاتصال:
+<br>
+الرقم الوظيفي: 04
+<br>
+الرقم السري: 123456
+
+</div>
+
+</div>
+
+</div>
+
+`;
 
 }
 
 
-/* =========================
-   تسجيل الدخول
-========================= */
+/* =========================================================
+التحقق من تسجيل الدخول
+========================================================= */
 
 function doLogin(){
 
-  // قراءة الرقم الوظيفي
-  let id=document
-    .getElementById("emp")
-    .value
-    .trim();
+let id=document
+.getElementById("emp")
+.value
+.trim();
 
-  // قراءة الرقم السري
-  let pw=document
-    .getElementById("pw")
-    .value;
-
-  // البحث عن المستخدم
-  let u=mockUsers[id];
+let pw=document
+.getElementById("pw")
+.value;
 
 
-  // التحقق من الرقم الوظيفي
-  if(!u){
+if(!id){
 
-    alert("الرقم الوظيفي غير موجود");
+alert("يرجى إدخال الرقم الوظيفي");
 
-    return;
-  }
-
-
-  // التحقق من إدخال الرقم السري
-  if(!pw){
-
-    alert("يرجى إدخال الرقم السري");
-
-    return;
-  }
-
-
-  // التحقق من الرقم السري المرتبط بالرقم الوظيفي
-  if(u.password!==pw){
-
-    alert("الرقم السري غير صحيح");
-
-    return;
-  }
-
-
-  // تسجيل الدخول بنجاح
-  state.user=u;
-
-  // الانتقال للنظام
-  app();
+return;
 
 }
 
 
-/* =========================
-   الواجهة الرئيسية
-========================= */
+if(!pw){
+
+alert("يرجى إدخال الرقم السري");
+
+return;
+
+}
+
+
+let u=mockUsers[id];
+
+
+if(!u){
+
+alert("الرقم الوظيفي غير موجود");
+
+return;
+
+}
+
+
+if(u.password!==pw){
+
+alert("الرقم السري غير صحيح");
+
+return;
+
+}
+
+
+state.user=u;
+
+app();
+
+}
+
+
+/* =========================================================
+الواجهة الرئيسية
+========================================================= */
 
 function shell(){
 
-  document.getElementById("app").innerHTML=`
+document.getElementById("app").innerHTML=`
 
-    <div class="top">
+<div class="top">
 
-      <div class="brand">
+<div class="brand">
 
-        <div class="logo">⚙</div>
+<div class="logo">
+⚙
+</div>
 
-        نظام أوامر العمل
+نظام أوامر العمل
 
-      </div>
-
-
-      <div class="user">
-
-        ${state.user.name}
-        —
-        ${state.user.dept}
-
-        <button
-          class="btn secondary"
-          style="margin-right:10px;padding:7px 11px"
-          onclick="logout()"
-        >
-          خروج
-        </button>
-
-      </div>
-
-    </div>
+</div>
 
 
-    <div class="layout">
+<div class="user">
 
-      <aside class="side">
+${state.user.name}
 
-        <h4>القائمة الرئيسية</h4>
+—
 
-
-        <div
-          class="nav active"
-          onclick="dashboard()"
-        >
-          لوحة التحكم
-        </div>
+${state.user.dept}
 
 
-        <div
-          class="nav"
-          onclick="newTicket()"
-        >
-          رفع بلاغ جديد
-        </div>
+<button
+class="btn secondary"
+style="margin-right:10px;padding:7px 11px"
+onclick="logout()"
+>
+خروج
+</button>
+
+</div>
+
+</div>
 
 
-        <div
-          class="nav"
-          onclick="tickets()"
-        >
-          أوامر العمل
-        </div>
+<div class="layout">
 
 
-        <div
-          class="nav"
-          onclick="routing()"
-        >
-          مسار البلاغ
-        </div>
+<aside class="side">
+
+<h4>
+القائمة الرئيسية
+</h4>
 
 
-        ${
-          state.user.admin
-          ?
-          '<div class="nav" onclick="permissions()">الصلاحيات والمستخدمون</div>'
-          :
-          ''
-        }
-
-      </aside>
+<div
+class="nav active"
+onclick="dashboard()"
+>
+لوحة التحكم
+</div>
 
 
-      <main
-        class="main"
-        id="main"
-      ></main>
+<div
+class="nav"
+onclick="newTicket()"
+>
+رفع بلاغ جديد
+</div>
 
-    </div>
 
-  `;
+<div
+class="nav"
+onclick="tickets()"
+>
+أوامر العمل
+</div>
+
+
+<div
+class="nav"
+onclick="routing()"
+>
+مسار البلاغ
+</div>
+
+
+${
+state.user.officer
+?
+`
+<div
+class="nav"
+onclick="officerDashboard()"
+>
+ضابط الاتصال
+</div>
+`
+:
+""
 }
 
 
-/* =========================
-   لوحة التحكم
-========================= */
+${
+state.user.admin
+?
+`
+<div
+class="nav"
+onclick="permissions()"
+>
+الصلاحيات والمستخدمون
+</div>
+`
+:
+""
+}
+
+</aside>
+
+
+<main
+class="main"
+id="main"
+></main>
+
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+لوحة التحكم
+========================================================= */
 
 function dashboard(){
 
-  document.getElementById("main").innerHTML=`
-
-    <div class="hero">
-
-      <div>
-
-        <h1>
-          مرحباً ${state.user.name}
-        </h1>
-
-        <p>
-          منصة موحدة لتسجيل ومتابعة أوامر العمل وتحويلها للقسم المختص.
-        </p>
-
-      </div>
-
-      <div class="pill">
-        نسخة تجريبية MVP
-      </div>
-
-    </div>
+let myTickets=state.tickets.filter(
+x=>x.reporter===state.user.name
+);
 
 
-    <div class="grid">
-
-      <div class="stat">
-        <b>${state.tickets.length}</b>
-        <small>إجمالي البلاغات</small>
-      </div>
-
-
-      <div class="stat">
-        <b>
-          ${
-            state.tickets.filter(
-              x=>x.status==="جديد"
-            ).length
-          }
-        </b>
-
-        <small>
-          بلاغات جديدة
-        </small>
-      </div>
+let displayTickets=
+state.user.officer || state.user.admin
+?
+state.tickets
+:
+myTickets;
 
 
-      <div class="stat">
-        <b>
-          ${
-            state.tickets.filter(
-              x=>x.status==="محال للقسم"
-            ).length
-          }
-        </b>
+document.getElementById("main").innerHTML=`
 
-        <small>
-          محالة للقسم
-        </small>
-      </div>
+<div class="hero">
 
+<div>
 
-      <div class="stat">
+<h1>
+مرحباً ${state.user.name}
+</h1>
 
-        <b>
-          ${
-            state.tickets.filter(
-              x=>x.status==="مغلق"
-            ).length
-          }
-        </b>
+<p>
+منصة موحدة لتسجيل ومتابعة أوامر العمل وتحويلها للقسم المختص.
+</p>
 
-        <small>
-          بلاغات مغلقة
-        </small>
-
-      </div>
-
-    </div>
+</div>
 
 
-    <div class="section">
+<div class="pill">
+نسخة تجريبية MVP
+</div>
 
-      <div class="section-title">
-
-        <h2>
-          آخر أوامر العمل
-        </h2>
-
-        <button
-          class="btn"
-          onclick="newTicket()"
-        >
-          + رفع بلاغ
-        </button>
-
-      </div>
+</div>
 
 
-      ${
-        state.tickets.length
-        ?
-        ticketTable(
-          state.tickets
-          .slice(-8)
-          .reverse()
-        )
-        :
-        `
-        <div class="card">
+<div class="grid">
 
-          <p style="color:var(--muted)">
-            لا توجد بلاغات حتى الآن.
-            ارفع أول بلاغ لتجربة دورة العمل.
-          </p>
+<div class="stat">
 
-        </div>
-        `
-      }
+<b>
+${displayTickets.length}
+</b>
 
-    </div>
+<small>
+إجمالي البلاغات
+</small>
 
-  `;
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+displayTickets.filter(
+x=>x.status==="جديد"
+).length
+}
+</b>
+
+<small>
+بلاغات جديدة
+</small>
+
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+displayTickets.filter(
+x=>x.status==="قيد العمل"
+).length
+}
+</b>
+
+<small>
+قيد العمل
+</small>
+
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+displayTickets.filter(
+x=>x.status==="تم الانتهاء"
+).length
+}
+</b>
+
+<small>
+تم الانتهاء
+</small>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+
+<h2>
+آخر أوامر العمل
+</h2>
+
+
+<button
+class="btn"
+onclick="newTicket()"
+>
++ رفع بلاغ
+</button>
+
+</div>
+
+
+${
+displayTickets.length
+?
+ticketTable(
+displayTickets
+.slice(-8)
+.reverse()
+)
+:
+`
+<div class="card">
+
+<p style="color:var(--muted)">
+لا توجد بلاغات حتى الآن.
+</p>
+
+</div>
+`
+}
+
+</div>
+
+`;
+
 }
 
 
-/* =========================
-   جدول البلاغات
-========================= */
+/* =========================================================
+جدول البلاغات العام
+========================================================= */
 
 function ticketTable(arr){
 
-  return `
+return `
 
-    <div class="table-wrap">
+<div class="table-wrap">
 
-      <table>
+<table>
 
-        <tr>
+<tr>
 
-          <th>رقم البلاغ</th>
-          <th>التصنيف</th>
-          <th>الموقع</th>
-          <th>الأولوية</th>
-          <th>الحالة</th>
-          <th>المبلغ</th>
-          <th></th>
+<th>
+رقم البلاغ
+</th>
 
-        </tr>
+<th>
+التصنيف
+</th>
+
+<th>
+الموقع
+</th>
+
+<th>
+الأولوية
+</th>
+
+<th>
+الحالة
+</th>
+
+<th>
+المبلغ
+</th>
+
+<th>
+القسم المحال
+</th>
+
+<th>
+
+</th>
+
+</tr>
 
 
-        ${
-          arr.map(
-            x=>`
+${
+arr.map(x=>`
 
-              <tr>
+<tr>
 
-                <td>
-                  #${x.id}
-                </td>
+<td>
+#${x.id}
+</td>
 
-                <td>
-                  ${x.cat}
-                </td>
+<td>
+${x.cat}
+</td>
 
-                <td>
-                  ${x.location}
-                </td>
+<td>
+${x.location}
+</td>
 
-                <td>
-                  ${badge(x.priority)}
-                </td>
+<td>
+${badge(x.priority)}
+</td>
 
-                <td>
-                  ${badge(x.status)}
-                </td>
+<td>
+${badge(x.status)}
+</td>
 
-                <td>
-                  ${x.reporter}
-                </td>
+<td>
+${x.reporter}
+</td>
 
-                <td>
+<td>
+${
+x.assignedDept
+||
+'<span style="color:#999">لم يتم التحويل</span>'
+}
+</td>
 
-                  <button
-                    class="btn secondary"
-                    onclick="view(${x.id})"
-                  >
-                    عرض
-                  </button>
+<td>
 
-                </td>
+<button
+class="btn secondary"
+onclick="view('${x.id}')"
+>
+عرض
+</button>
 
-              </tr>
+</td>
 
-            `
-          ).join("")
-        }
+</tr>
 
-      </table>
+`).join("")
+}
 
-    </div>
+</table>
 
-  `;
+</div>
+
+`;
+
 }
 
 
-/* =========================
-   حالة البلاغ
-========================= */
+/* =========================================================
+الحالات والألوان
+========================================================= */
 
 function badge(s){
 
-  let c=
-    s==="عاجل"
-    ?
-    "b-yellow"
-    :
-    s==="حرج"
-    ?
-    "b-blue"
-    :
-    s==="مغلق"
-    ?
-    "b-green"
-    :
-    "b-gray";
+let c="b-gray";
 
-  return `
-    <span class="badge ${c}">
-      ${s}
-    </span>
-  `;
+
+if(s==="جديد"){
+
+c="b-gray";
+
+}
+
+else if(s==="قيد العمل"){
+
+c="b-yellow";
+
+}
+
+else if(s==="تم الانتهاء"){
+
+c="b-green";
+
+}
+
+else if(s==="لم يتم الإنهاء"){
+
+c="b-red";
+
+}
+
+else if(s==="مغلق"){
+
+c="b-blue";
+
+}
+
+else if(s==="عاجل"){
+
+c="b-yellow";
+
+}
+
+else if(s==="حرج"){
+
+c="b-blue";
+
 }
 
 
-/* =========================
-   بلاغ جديد
-========================= */
+return `
+
+<span class="badge ${c}">
+${s}
+</span>
+
+`;
+
+}
+
+
+/* =========================================================
+رفع بلاغ جديد
+========================================================= */
 
 function newTicket(){
 
-  document.getElementById("main").innerHTML=`
+if(state.user.officer){
 
-    <div class="section-title">
+alert(
+"حساب ضابط الاتصال مخصص لإدارة وتحويل أوامر العمل."
+);
 
-      <h2>
-        رفع بلاغ / أمر عمل جديد
-      </h2>
+return;
 
-    </div>
-
-
-    <div class="card">
-
-      <div class="notice">
-
-        سيتم التحقق من أن المستخدم يملك صلاحية
-        الإبلاغ على الموقع المحدد قبل إرسال الطلب.
-
-      </div>
-
-
-      <div class="form-grid">
-
-
-        <div class="field">
-
-          <label>
-            نوع البلاغ *
-          </label>
-
-          <select id="cat">
-
-            ${
-              cats.map(
-                x=>`<option>${x}</option>`
-              ).join("")
-            }
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            درجة الأهمية *
-          </label>
-
-          <select id="pri">
-
-            <option>عادي</option>
-            <option>عاجل</option>
-            <option>حرج</option>
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            المبنى / القسم / الموقع *
-          </label>
-
-          <select id="loc">
-
-            <option value="">
-              اختر الموقع
-            </option>
-
-            ${
-              state.user.areas.map(
-                x=>`<option>${x}</option>`
-              ).join("")
-            }
-
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            الموقع التفصيلي
-          </label>
-
-          <input
-            id="detail"
-            placeholder="مثال: غرفة 204 - الدور الثاني"
-          >
-
-        </div>
-
-
-        <div class="field full">
-
-          <label>
-            وصف العطل *
-          </label>
-
-          <textarea
-            id="desc"
-            placeholder="اكتب وصف المشكلة بالتفصيل..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="field full">
-
-          <label>
-            صورة البلاغ * (صورة واحدة على الأقل)
-          </label>
-
-          <input
-            id="photos"
-            type="file"
-            accept="image/*"
-            multiple
-            onchange="previewFiles()"
-          >
-
-          <div
-            class="preview"
-            id="prev"
-          ></div>
-
-        </div>
-
-
-      </div>
-
-
-      <button
-        class="btn"
-        onclick="submitTicket()"
-      >
-        إرسال البلاغ
-      </button>
-
-    </div>
-
-  `;
 }
 
 
-/* =========================
-   الصور
-========================= */
+document.getElementById("main").innerHTML=`
+
+<div class="section-title">
+
+<h2>
+رفع بلاغ / أمر عمل جديد
+</h2>
+
+</div>
+
+
+<div class="card">
+
+
+<div class="notice">
+
+سيتم التحقق من صلاحية المستخدم
+على الموقع المحدد قبل إرسال الطلب.
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label>
+نوع البلاغ *
+</label>
+
+<select id="cat">
+
+${
+cats.map(
+x=>`<option>${x}</option>`
+).join("")
+}
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+درجة الأهمية *
+</label>
+
+<select id="pri">
+
+<option>
+عادي
+</option>
+
+<option>
+عاجل
+</option>
+
+<option>
+حرج
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+المبنى / القسم / الموقع *
+</label>
+
+<select id="loc">
+
+<option value="">
+اختر الموقع
+</option>
+
+${
+state.user.areas.map(
+x=>`<option>${x}</option>`
+).join("")
+}
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+الموقع التفصيلي
+</label>
+
+<input
+id="detail"
+placeholder="مثال: غرفة 204 - الدور الثاني"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+وصف العطل *
+</label>
+
+<textarea
+id="desc"
+placeholder="اكتب وصف المشكلة بالتفصيل..."
+></textarea>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+صورة البلاغ *
+</label>
+
+<input
+id="photos"
+type="file"
+accept="image/*"
+multiple
+onchange="previewFiles()"
+>
+
+
+<div
+class="preview"
+id="prev"
+></div>
+
+</div>
+
+
+</div>
+
+
+<button
+class="btn"
+onclick="submitTicket()"
+>
+إرسال البلاغ
+</button>
+
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+الصور
+========================================================= */
 
 let fileData=[];
 
 
 function previewFiles(){
 
-  let f=[
-    ...document
-    .getElementById("photos")
-    .files
-  ];
+let f=[
 
-  fileData=f;
+...document
+.getElementById("photos")
+.files
+
+];
 
 
-  document.getElementById("prev").innerHTML=
+fileData=f;
 
-    f.map(
-      x=>`
-        <span class="badge b-gray">
-          ${x.name}
-        </span>
-      `
-    ).join(" ");
+
+document.getElementById("prev").innerHTML=
+
+f.map(
+x=>`
+<span class="badge b-gray">
+📷 ${x.name}
+</span>
+`
+).join(" ");
 
 }
 
 
-/* =========================
-   إرسال البلاغ
-========================= */
+/* =========================================================
+إرسال البلاغ
+========================================================= */
 
 function submitTicket(){
 
-  let loc=
-    document
-    .getElementById("loc")
-    .value;
-
-  let desc=
-    document
-    .getElementById("desc")
-    .value
-    .trim();
+let loc=
+document
+.getElementById("loc")
+.value;
 
 
-  if(
-    !loc ||
-    !desc ||
-    !fileData.length
-  ){
-
-    alert(
-      "أكمل الموقع والوصف وارفع صورة واحدة على الأقل."
-    );
-
-    return;
-  }
+let desc=
+document
+.getElementById("desc")
+.value
+.trim();
 
 
-  let t={
+if(
+!loc ||
+!desc ||
+!fileData.length
+){
 
-    id:Date
-      .now()
-      .toString()
-      .slice(-6),
+alert(
+"أكمل الموقع والوصف وارفع صورة واحدة على الأقل."
+);
 
-    cat:
-      document
-      .getElementById("cat")
-      .value,
-
-    priority:
-      document
-      .getElementById("pri")
-      .value,
-
-    location:loc,
-
-    detail:
-      document
-      .getElementById("detail")
-      .value,
-
-    desc,
-
-    reporter:
-      state.user.name,
-
-    status:"جديد",
-
-    created:
-      new Date()
-      .toLocaleString("ar-SA"),
-
-    contact:"ضابط الاتصال",
-
-    photos:
-      fileData.map(
-        x=>x.name
-      )
-
-  };
-
-
-  state.tickets.push(t);
-
-  save();
-
-  alert(
-    "تم إنشاء البلاغ وتحويله إلى ضابط الاتصال."
-  );
-
-  tickets();
+return;
 
 }
 
 
-/* =========================
-   أوامر العمل
-========================= */
+let t={
+
+id:
+Date.now()
+.toString()
+.slice(-6),
+
+
+cat:
+document
+.getElementById("cat")
+.value,
+
+
+priority:
+document
+.getElementById("pri")
+.value,
+
+
+location:loc,
+
+
+detail:
+document
+.getElementById("detail")
+.value,
+
+
+desc:desc,
+
+
+reporter:
+state.user.name,
+
+
+reporterDept:
+state.user.dept,
+
+
+status:"جديد",
+
+
+assignedDept:"",
+
+
+assignedBy:"",
+
+
+created:
+new Date()
+.toLocaleString("ar-SA"),
+
+
+contact:"ضابط الاتصال",
+
+
+photos:
+fileData.map(
+x=>x.name
+),
+
+
+signature:null,
+
+
+signatureDate:null,
+
+
+completedBy:null,
+
+
+completedDate:null
+
+};
+
+
+state.tickets.push(t);
+
+
+save();
+
+
+fileData=[];
+
+
+alert(
+"تم إنشاء البلاغ وتحويله إلى ضابط الاتصال."
+);
+
+
+tickets();
+
+}
+
+
+/* =========================================================
+أوامر العمل
+========================================================= */
 
 function tickets(){
 
-  document.getElementById("main").innerHTML=`
-
-    <div class="section-title">
-
-      <h2>
-        أوامر العمل
-      </h2>
-
-      <button
-        class="btn"
-        onclick="newTicket()"
-      >
-        + بلاغ جديد
-      </button>
-
-    </div>
+let list=state.user.officer || state.user.admin
+?
+state.tickets
+:
+state.tickets.filter(
+x=>x.reporter===state.user.name
+);
 
 
-    ${
-      ticketTable(
-        state.tickets
-        .slice()
-        .reverse()
-      )
-      || ""
-    }
+document.getElementById("main").innerHTML=`
 
-  `;
+<div class="section-title">
+
+<h2>
+أوامر العمل
+</h2>
+
+
+${
+!state.user.officer
+?
+`
+<button
+class="btn"
+onclick="newTicket()"
+>
++ بلاغ جديد
+</button>
+`
+:
+""
+}
+
+</div>
+
+
+${
+list.length
+?
+ticketTable(
+list
+.slice()
+.reverse()
+)
+:
+`
+<div class="card">
+لا توجد أوامر عمل.
+</div>
+`
+}
+
+`;
+
 }
 
 
-/* =========================
-   عرض البلاغ
-========================= */
+/* =========================================================
+عرض البلاغ للمستخدم
+========================================================= */
 
 function view(id){
 
-  let x=
-    state.tickets.find(
-      t=>t.id==id
-    );
+let x=
+state.tickets.find(
+t=>t.id==id
+);
 
 
-  openModal(`
+if(!x){
 
-    <div class="modal-head">
+alert("البلاغ غير موجود");
 
-      <h2>
-        بلاغ #${x.id}
-      </h2>
-
-      <button
-        class="x"
-        onclick="closeModal()"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <p>
-      ${badge(x.status)}
-      ${badge(x.priority)}
-    </p>
-
-
-    <div class="form-grid">
-
-      <div>
-
-        <b>المبلغ</b>
-
-        <p>
-          ${x.reporter}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <b>نوع البلاغ</b>
-
-        <p>
-          ${x.cat}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <b>القسم/الموقع</b>
-
-        <p>
-          ${x.location}
-          —
-          ${x.detail||"غير محدد"}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <b>تاريخ البلاغ</b>
-
-        <p>
-          ${x.created}
-        </p>
-
-      </div>
-
-
-      <div class="full">
-
-        <b>الوصف</b>
-
-        <p>
-          ${x.desc}
-        </p>
-
-      </div>
-
-
-      <div class="full">
-
-        <b>المرفقات</b>
-
-        <p>
-          ${
-            x.photos
-            .map(
-              p=>"📷 "+p
-            )
-            .join("<br>")
-          }
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <hr>
-
-
-    <h3>
-      مسار البلاغ
-    </h3>
-
-
-    <div class="timeline">
-
-      <div class="step">
-
-        <small>
-          ${x.created}
-        </small>
-
-        <b>
-          تم تسجيل البلاغ
-        </b>
-
-        <span>
-          بواسطة ${x.reporter}
-        </span>
-
-      </div>
-
-
-      <div class="step">
-
-        <small>
-          المرحلة التالية
-        </small>
-
-        <b>
-          ضابط الاتصال
-        </b>
-
-        <span>
-          مراجعة الصورة وتحديد الأولوية والتحويل للقسم المعني
-        </span>
-
-      </div>
-
-
-      <div class="step">
-
-        <small>
-          بعد التحويل
-        </small>
-
-        <b>
-          القسم المختص
-        </b>
-
-        <span>
-          استلام أمر العمل والبدء في المعالجة
-        </span>
-
-      </div>
-
-    </div>
-
-
-    ${
-      state.user.admin
-      ?
-      `
-      <button
-        class="btn"
-        onclick="advance(${x.id})"
-      >
-        محاكاة تحويل للقسم المختص
-      </button>
-      `
-      :
-      ""
-    }
-
-  `);
+return;
 
 }
 
 
-/* =========================
-   تحديث حالة البلاغ
-========================= */
+openModal(`
 
-function advance(id){
+<div class="modal-head">
 
-  let x=
-    state.tickets.find(
-      t=>t.id==id
-    );
+<h2>
+بلاغ #${x.id}
+</h2>
 
 
-  x.status=
-    x.status==="جديد"
-    ?
-    "محال للقسم"
-    :
-    x.status==="محال للقسم"
-    ?
-    "قيد التنفيذ"
-    :
-    "مغلق";
+<button
+class="x"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
 
 
-  save();
+<p>
 
-  closeModal();
+${badge(x.status)}
 
-  tickets();
+${badge(x.priority)}
+
+</p>
+
+
+<div class="form-grid">
+
+
+<div>
+
+<b>
+المبلغ
+</b>
+
+<p>
+${x.reporter}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+نوع البلاغ
+</b>
+
+<p>
+${x.cat}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+القسم / الموقع
+</b>
+
+<p>
+${x.location}
+
+${x.detail ? " — "+x.detail : ""}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+القسم الفني المحال إليه
+</b>
+
+<p>
+${
+x.assignedDept
+||
+"لم يتم التحويل بعد"
+}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+تاريخ البلاغ
+</b>
+
+<p>
+${x.created}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+محول بواسطة
+</b>
+
+<p>
+${x.assignedBy || "—"}
+</p>
+
+</div>
+
+
+<div class="full">
+
+<b>
+وصف العطل
+</b>
+
+<p>
+${x.desc}
+</p>
+
+</div>
+
+
+<div class="full">
+
+<b>
+المرفقات
+</b>
+
+<p>
+
+${
+x.photos.length
+?
+x.photos
+.map(
+p=>"📷 "+p
+)
+.join("<br>")
+:
+"لا توجد مرفقات"
+}
+
+</p>
+
+</div>
+
+</div>
+
+
+<hr>
+
+
+<h3>
+مسار البلاغ
+</h3>
+
+
+<div class="timeline">
+
+
+<div class="step">
+
+<small>
+${x.created}
+</small>
+
+<b>
+تم تسجيل البلاغ
+</b>
+
+<span>
+بواسطة ${x.reporter}
+</span>
+
+</div>
+
+
+${
+x.assignedDept
+?
+`
+<div class="step">
+
+<small>
+تم التحويل بواسطة ${x.assignedBy}
+</small>
+
+<b>
+تم تحويل أمر العمل
+</b>
+
+<span>
+إلى قسم ${x.assignedDept}
+</span>
+
+</div>
+`
+:
+""
+}
+
+
+<div class="step">
+
+<small>
+الحالة الحالية
+</small>
+
+<b>
+${badge(x.status)}
+</b>
+
+<span>
+${
+x.status==="جديد"
+?
+"بانتظار الإجراء"
+:
+x.status==="قيد العمل"
+?
+"القسم الفني يعمل على البلاغ"
+:
+x.status==="تم الانتهاء"
+?
+"بانتظار مصادقة المبلغ"
+:
+x.status==="لم يتم الإنهاء"
+?
+"لم يتم الانتهاء من أمر العمل"
+:
+"تمت المصادقة وإغلاق أمر العمل"
+}
+</span>
+
+</div>
+
+</div>
+
+
+${
+x.status==="تم الانتهاء" &&
+!x.signature &&
+x.reporter===state.user.name
+?
+`
+
+<div class="notice success">
+
+تم الانتهاء من معالجة أمر العمل.
+
+<br><br>
+
+يرجى مراجعة العمل المنفذ
+ثم التوقيع للمصادقة على الإنهاء.
+
+</div>
+
+
+<button
+class="btn"
+onclick="reporterSign('${x.id}')"
+>
+✍️ توقيع واعتماد إنهاء أمر العمل
+</button>
+
+`
+:
+""
+}
+
+
+${
+x.signature
+?
+`
+
+<div
+class="notice success"
+style="margin-top:20px"
+>
+
+✓ تم إغلاق أمر العمل والمصادقة عليه.
+
+<br><br>
+
+المبلغ:
+<b>${x.reporter}</b>
+
+<br>
+
+تاريخ المصادقة:
+${x.signatureDate}
+
+</div>
+
+
+<img
+class="signature-image"
+src="${x.signature}"
+>
+
+`
+:
+""
+}
+
+`);
 
 }
 
 
-/* =========================
-   مسار البلاغ
-========================= */
+/* =========================================================
+لوحة ضابط الاتصال
+========================================================= */
+
+function officerDashboard(){
+
+if(!state.user.officer){
+
+alert(
+"هذه الشاشة مخصصة لضابط الاتصال."
+);
+
+return;
+
+}
+
+
+let ticketsList=
+state.tickets
+.slice()
+.reverse();
+
+
+document.getElementById("main").innerHTML=`
+
+<div class="hero">
+
+<div>
+
+<h1>
+لوحة ضابط الاتصال
+</h1>
+
+<p>
+مراجعة البلاغات وتحويلها للأقسام الفنية ومتابعة حالتها.
+</p>
+
+</div>
+
+
+<div class="pill">
+ضابط الاتصال
+</div>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="stat">
+
+<b>
+${
+state.tickets.filter(
+x=>x.status==="جديد"
+).length
+}
+</b>
+
+<small>
+جديد
+</small>
+
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+state.tickets.filter(
+x=>x.status==="قيد العمل"
+).length
+}
+</b>
+
+<small>
+قيد العمل
+</small>
+
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+state.tickets.filter(
+x=>x.status==="تم الانتهاء"
+).length
+}
+</b>
+
+<small>
+تم الانتهاء
+</small>
+
+</div>
+
+
+<div class="stat">
+
+<b>
+${
+state.tickets.filter(
+x=>x.status==="لم يتم الإنهاء"
+).length
+}
+</b>
+
+<small>
+لم يتم الإنهاء
+</small>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+
+<h2>
+جميع البلاغات
+</h2>
+
+<span class="badge b-blue">
+${ticketsList.length} بلاغ
+</span>
+
+</div>
+
+
+${
+ticketsList.length
+?
+officerTable(ticketsList)
+:
+`
+<div class="card">
+
+لا توجد بلاغات حالياً.
+
+</div>
+`
+}
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+جدول ضابط الاتصال
+========================================================= */
+
+function officerTable(arr){
+
+return `
+
+<div class="table-wrap">
+
+<table>
+
+<tr>
+
+<th>
+رقم البلاغ
+</th>
+
+<th>
+المبلغ
+</th>
+
+<th>
+التصنيف
+</th>
+
+<th>
+الموقع
+</th>
+
+<th>
+الأولوية
+</th>
+
+<th>
+القسم المحال
+</th>
+
+<th>
+الحالة
+</th>
+
+<th>
+الإجراء
+</th>
+
+</tr>
+
+
+${
+arr.map(x=>`
+
+<tr>
+
+<td>
+#${x.id}
+</td>
+
+<td>
+${x.reporter}
+</td>
+
+<td>
+${x.cat}
+</td>
+
+<td>
+${x.location}
+</td>
+
+<td>
+${badge(x.priority)}
+</td>
+
+<td>
+${
+x.assignedDept
+||
+'<span style="color:#999">لم يتم التحويل</span>'
+}
+</td>
+
+<td>
+${badge(x.status)}
+</td>
+
+<td>
+
+<button
+class="btn secondary"
+onclick="officerView('${x.id}')"
+>
+إدارة البلاغ
+</button>
+
+</td>
+
+</tr>
+
+`).join("")
+}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+شاشة إدارة البلاغ لضابط الاتصال
+========================================================= */
+
+function officerView(id){
+
+let x=
+state.tickets.find(
+t=>t.id==id
+);
+
+
+if(!x){
+
+alert("البلاغ غير موجود");
+
+return;
+
+}
+
+
+openModal(`
+
+<div class="modal-head">
+
+<h2>
+إدارة البلاغ #${x.id}
+</h2>
+
+
+<button
+class="x"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
+
+
+<p>
+
+${badge(x.status)}
+
+${badge(x.priority)}
+
+</p>
+
+
+<div class="form-grid">
+
+
+<div>
+
+<b>
+المبلغ
+</b>
+
+<p>
+${x.reporter}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+قسم المبلغ
+</b>
+
+<p>
+${x.reporterDept}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+نوع العطل
+</b>
+
+<p>
+${x.cat}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+الموقع
+</b>
+
+<p>
+${x.location}
+
+${x.detail ? " — "+x.detail : ""}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+تاريخ البلاغ
+</b>
+
+<p>
+${x.created}
+</p>
+
+</div>
+
+
+<div>
+
+<b>
+القسم الفني
+</b>
+
+<p>
+${
+x.assignedDept
+||
+"لم يتم التحويل"
+}
+</p>
+
+</div>
+
+
+<div class="full">
+
+<b>
+وصف العطل
+</b>
+
+<p>
+${x.desc}
+</p>
+
+</div>
+
+
+<div class="full">
+
+<b>
+المرفقات
+</b>
+
+<p>
+${
+x.photos.length
+?
+x.photos
+.map(
+p=>"📷 "+p
+)
+.join("<br>")
+:
+"لا توجد صور"
+}
+</p>
+
+</div>
+
+</div>
+
+
+<hr>
+
+
+<h3>
+1 — تحويل أمر العمل
+</h3>
+
+
+<div class="field">
+
+<label>
+اختر القسم الفني المختص
+</label>
+
+
+<select id="assignDept">
+
+<option value="">
+اختر القسم
+</option>
+
+
+${
+cats.map(c=>`
+
+<option
+value="${c}"
+${x.assignedDept===c ? "selected" : ""}
+>
+${c}
+</option>
+
+`).join("")
+}
+
+</select>
+
+</div>
+
+
+<button
+class="btn"
+onclick="assignTicket('${x.id}')"
+>
+تحويل للقسم المختص
+</button>
+
+
+<hr>
+
+
+<h3>
+2 — تحديث حالة أمر العمل
+</h3>
+
+
+<div class="status-flow">
+
+${badge("جديد")}
+
+<span class="arrow">
+←
+</span>
+
+${badge("قيد العمل")}
+
+<span class="arrow">
+←
+</span>
+
+${badge("تم الانتهاء")}
+
+<span class="arrow">
+←
+</span>
+
+${badge("مغلق")}
+
+</div>
+
+
+<div class="field">
+
+<label>
+حالة أمر العمل
+</label>
+
+
+<select id="ticketStatus">
+
+<option
+value="جديد"
+${x.status==="جديد"?"selected":""}
+>
+جديد
+</option>
+
+
+<option
+value="قيد العمل"
+${x.status==="قيد العمل"?"selected":""}
+>
+قيد العمل
+</option>
+
+
+<option
+value="تم الانتهاء"
+${x.status==="تم الانتهاء"?"selected":""}
+>
+تم الانتهاء
+</option>
+
+
+<option
+value="لم يتم الإنهاء"
+${x.status==="لم يتم الإنهاء"?"selected":""}
+>
+لم يتم الإنهاء
+</option>
+
+</select>
+
+</div>
+
+
+<button
+class="btn"
+onclick="updateTicketStatus('${x.id}')"
+>
+حفظ حالة أمر العمل
+</button>
+
+
+${
+x.status==="تم الانتهاء" && !x.signature
+?
+`
+
+<div class="notice">
+
+🟢 تم الانتهاء من أمر العمل.
+
+<br><br>
+
+بانتظار توقيع المبلغ للمصادقة على انتهاء العمل.
+
+</div>
+
+`
+:
+""
+}
+
+
+${
+x.status==="لم يتم الإنهاء"
+?
+`
+
+<div class="notice danger">
+
+🔴 تم تسجيل أمر العمل على أنه لم يتم الإنهاء.
+
+</div>
+
+`
+:
+""
+}
+
+
+${
+x.signature
+?
+`
+
+<div class="notice success">
+
+✓ تمت مصادقة المبلغ على انتهاء أمر العمل.
+
+<br><br>
+
+المبلغ:
+<b>${x.reporter}</b>
+
+<br>
+
+تاريخ المصادقة:
+${x.signatureDate}
+
+</div>
+
+
+<img
+class="signature-image"
+src="${x.signature}"
+>
+
+`
+:
+""
+}
+
+`);
+
+}
+
+
+/* =========================================================
+تحويل البلاغ للقسم
+========================================================= */
+
+function assignTicket(id){
+
+let x=
+state.tickets.find(
+t=>t.id==id
+);
+
+
+let dept=
+document
+.getElementById("assignDept")
+.value;
+
+
+if(!dept){
+
+alert(
+"اختر القسم الفني أولاً."
+);
+
+return;
+
+}
+
+
+x.assignedDept=dept;
+
+x.assignedBy=state.user.name;
+
+x.status="جديد";
+
+
+save();
+
+
+alert(
+"تم تحويل أمر العمل إلى قسم "+dept
+);
+
+
+closeModal();
+
+officerDashboard();
+
+}
+
+
+/* =========================================================
+تحديث حالة أمر العمل
+========================================================= */
+
+function updateTicketStatus(id){
+
+let x=
+state.tickets.find(
+t=>t.id==id
+);
+
+
+let status=
+document
+.getElementById("ticketStatus")
+.value;
+
+
+if(
+status!=="جديد" &&
+!x.assignedDept
+){
+
+alert(
+"يجب تحويل أمر العمل إلى قسم فني أولاً."
+);
+
+return;
+
+}
+
+
+x.status=status;
+
+
+if(status==="قيد العمل"){
+
+x.startedBy=state.user.name;
+
+x.startedDate=
+new Date()
+.toLocaleString("ar-SA");
+
+}
+
+
+if(status==="تم الانتهاء"){
+
+x.completedBy=state.user.name;
+
+x.completedDate=
+new Date()
+.toLocaleString("ar-SA");
+
+}
+
+
+if(status==="لم يتم الإنهاء"){
+
+x.notCompletedBy=
+state.user.name;
+
+x.notCompletedDate=
+new Date()
+.toLocaleString("ar-SA");
+
+}
+
+
+save();
+
+
+alert(
+"تم تحديث حالة أمر العمل."
+);
+
+
+closeModal();
+
+officerDashboard();
+
+}
+
+
+/* =========================================================
+توقيع المبلغ
+========================================================= */
+
+function reporterSign(id){
+
+let x=
+state.tickets.find(
+t=>t.id==id
+);
+
+
+if(!x){
+
+alert("البلاغ غير موجود");
+
+return;
+
+}
+
+
+if(x.status!=="تم الانتهاء"){
+
+alert(
+"لا يمكن التوقيع إلا بعد تحويل الحالة إلى تم الانتهاء."
+);
+
+return;
+
+}
+
+
+if(x.reporter!==state.user.name){
+
+alert(
+"التوقيع متاح للمبلغ صاحب البلاغ فقط."
+);
+
+return;
+
+}
+
+
+openModal(`
+
+<div class="modal-head">
+
+<h2>
+المصادقة على إنهاء أمر العمل
+</h2>
+
+
+<button
+class="x"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
+
+
+<div class="notice success">
+
+تم الانتهاء من معالجة أمر العمل.
+
+<br>
+
+يرجى مراجعة العمل المنفذ
+ثم التوقيع للمصادقة على الإنهاء.
+
+</div>
+
+
+<div class="status-card">
+
+<b>
+رقم البلاغ:
+</b>
+
+#${x.id}
+
+<br><br>
+
+<b>
+القسم الفني:
+</b>
+
+${x.assignedDept}
+
+<br><br>
+
+<b>
+نوع العطل:
+</b>
+
+${x.cat}
+
+<br><br>
+
+<b>
+وصف العطل:
+</b>
+
+${x.desc}
+
+</div>
+
+
+<h3>
+التوقيع الإلكتروني
+</h3>
+
+
+<p style="color:var(--muted);font-size:13px">
+
+استخدم إصبعك من الجوال أو الماوس
+من الكمبيوتر للتوقيع داخل المربع.
+
+</p>
+
+
+<canvas
+id="signaturePad"
+width="650"
+height="250"
+></canvas>
+
+
+<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+
+
+<button
+class="btn secondary"
+onclick="clearSignature()"
+>
+مسح التوقيع
+</button>
+
+
+<button
+class="btn"
+onclick="saveSignature('${x.id}')"
+>
+✓ اعتماد وإنهاء أمر العمل
+</button>
+
+</div>
+
+`);
+
+
+initSignature();
+
+}
+
+
+/* =========================================================
+تهيئة التوقيع
+========================================================= */
+
+function initSignature(){
+
+signatureCanvas=
+document
+.getElementById("signaturePad");
+
+
+if(!signatureCanvas){
+
+return;
+
+}
+
+
+signatureCtx=
+signatureCanvas
+.getContext("2d");
+
+
+signatureCtx.lineWidth=3;
+
+signatureCtx.lineCap="round";
+
+signatureCtx.lineJoin="round";
+
+signatureCtx.strokeStyle="#111";
+
+
+signatureCanvas.addEventListener(
+"pointerdown",
+startSignature
+);
+
+
+signatureCanvas.addEventListener(
+"pointermove",
+drawSignature
+);
+
+
+signatureCanvas.addEventListener(
+"pointerup",
+stopSignature
+);
+
+
+signatureCanvas.addEventListener(
+"pointerleave",
+stopSignature
+);
+
+
+signatureCanvas.addEventListener(
+"pointercancel",
+stopSignature
+);
+
+}
+
+
+/* =========================================================
+تحديد مكان القلم
+========================================================= */
+
+function getPosition(e){
+
+let rect=
+signatureCanvas
+.getBoundingClientRect();
+
+
+return{
+
+x:
+(e.clientX-rect.left)
+*
+(
+signatureCanvas.width/
+rect.width
+),
+
+
+y:
+(e.clientY-rect.top)
+*
+(
+signatureCanvas.height/
+rect.height
+)
+
+};
+
+}
+
+
+/* =========================================================
+بداية التوقيع
+========================================================= */
+
+function startSignature(e){
+
+drawing=true;
+
+
+let p=
+getPosition(e);
+
+
+signatureCtx.beginPath();
+
+
+signatureCtx.moveTo(
+p.x,
+p.y
+);
+
+}
+
+
+/* =========================================================
+رسم التوقيع
+========================================================= */
+
+function drawSignature(e){
+
+if(!drawing){
+
+return;
+
+}
+
+
+let p=
+getPosition(e);
+
+
+signatureCtx.lineTo(
+p.x,
+p.y
+);
+
+
+signatureCtx.stroke();
+
+}
+
+
+/* =========================================================
+نهاية التوقيع
+========================================================= */
+
+function stopSignature(){
+
+drawing=false;
+
+}
+
+
+/* =========================================================
+مسح التوقيع
+========================================================= */
+
+function clearSignature(){
+
+if(
+!signatureCanvas ||
+!signatureCtx
+){
+
+return;
+
+}
+
+
+signatureCtx.clearRect(
+0,
+0,
+signatureCanvas.width,
+signatureCanvas.height
+);
+
+}
+
+
+/* =========================================================
+حفظ التوقيع واعتماد الإغلاق
+========================================================= */
+
+function saveSignature(id){
+
+let x=
+state.tickets.find(
+t=>t.id==id
+);
+
+
+if(!x){
+
+alert("البلاغ غير موجود");
+
+return;
+
+}
+
+
+if(!signatureCanvas){
+
+alert(
+"تعذر فتح لوحة التوقيع."
+);
+
+return;
+
+}
+
+
+let canvasData=
+signatureCanvas
+.toDataURL("image/png");
+
+
+let blankCanvas=
+document
+.createElement("canvas");
+
+
+blankCanvas.width=
+signatureCanvas.width;
+
+
+blankCanvas.height=
+signatureCanvas.height;
+
+
+let blankData=
+blankCanvas
+.toDataURL("image/png");
+
+
+if(canvasData===blankData){
+
+alert(
+"يرجى التوقيع أولاً."
+);
+
+return;
+
+}
+
+
+x.signature=
+canvasData;
+
+
+x.signatureDate=
+new Date()
+.toLocaleString("ar-SA");
+
+
+x.signatureBy=
+x.reporter;
+
+
+x.status="مغلق";
+
+
+save();
+
+
+alert(
+"تمت المصادقة على أمر العمل وإغلاقه بنجاح."
+);
+
+
+closeModal();
+
+
+tickets();
+
+}
+
+
+/* =========================================================
+مسار البلاغ
+========================================================= */
 
 function routing(){
 
-  document.getElementById("main").innerHTML=`
+document.getElementById("main").innerHTML=`
 
-    <div class="section-title">
+<div class="section-title">
 
-      <h2>
-        مسار البلاغ
-      </h2>
+<h2>
+مسار البلاغ
+</h2>
 
-    </div>
-
-
-    <div class="card">
-
-      <div class="timeline">
+</div>
 
 
-        <div class="step">
+<div class="card">
 
-          <b>
-            1. الموظف
-          </b>
-
-          <span>
-            تسجيل الدخول بالرقم الوظيفي والرقم السري.
-          </span>
-
-        </div>
+<div class="timeline">
 
 
-        <div class="step">
+<div class="step">
 
-          <b>
-            2. إنشاء البلاغ
-          </b>
+<b>
+1. الموظف
+</b>
 
-          <span>
-            اختيار نوع العطل والموقع ووصف المشكلة وإرفاق صورة.
-          </span>
+<span>
+تسجيل الدخول بالرقم الوظيفي والرقم السري.
+</span>
 
-        </div>
-
-
-        <div class="step">
-
-          <b>
-            3. ضابط الاتصال
-          </b>
-
-          <span>
-            مراجعة البلاغ والصورة وتحديد الأولوية.
-          </span>
-
-        </div>
+</div>
 
 
-        <div class="step">
+<div class="step">
 
-          <b>
-            4. التوجيه
-          </b>
+<b>
+2. إنشاء البلاغ
+</b>
 
-          <span>
-            تحويل البلاغ آلياً للقسم الفني المعني.
-          </span>
+<span>
+اختيار نوع العطل والموقع ووصف المشكلة وإرفاق صورة.
+</span>
 
-        </div>
-
-
-        <div class="step">
-
-          <b>
-            5. التنفيذ
-          </b>
-
-          <span>
-            تحديث الحالة والإجراءات وقطع الغيار عند الحاجة.
-          </span>
-
-        </div>
+</div>
 
 
-        <div class="step">
+<div class="step">
 
-          <b>
-            6. الإغلاق
-          </b>
+<b>
+3. ضابط الاتصال
+</b>
 
-          <span>
-            إغلاق أمر العمل بعد المعالجة والتوثيق.
-          </span>
+<span>
+مراجعة البلاغ وتحديد القسم الفني المختص.
+</span>
 
-        </div>
+</div>
 
 
-      </div>
+<div class="step">
 
-    </div>
+<b>
+4. التحويل
+</b>
 
-  `;
+<span>
+تحويل أمر العمل للقسم الفني المختص.
+</span>
+
+</div>
+
+
+<div class="step">
+
+<b>
+5. قيد العمل
+</b>
+
+<span>
+القسم الفني يبدأ تنفيذ أمر العمل.
+</span>
+
+</div>
+
+
+<div class="step">
+
+<b>
+6. تم الانتهاء
+</b>
+
+<span>
+القسم الفني يحدد أن العمل تم الانتهاء منه.
+</span>
+
+</div>
+
+
+<div class="step">
+
+<b>
+7. المصادقة
+</b>
+
+<span>
+المبلغ يراجع العمل ويوقع إلكترونياً.
+</span>
+
+</div>
+
+
+<div class="step">
+
+<b>
+8. الإغلاق
+</b>
+
+<span>
+يتم إغلاق أمر العمل بعد المصادقة.
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:20px">
+
+<h3>
+حالات أمر العمل
+</h3>
+
+
+<div class="status-flow">
+
+${badge("جديد")}
+
+${badge("قيد العمل")}
+
+${badge("تم الانتهاء")}
+
+${badge("لم يتم الإنهاء")}
+
+${badge("مغلق")}
+
+</div>
+
+</div>
+
+`;
 
 }
 
 
-/* =========================
-   الصلاحيات والمستخدمون
-========================= */
+/* =========================================================
+الصلاحيات والمستخدمون
+========================================================= */
 
 function permissions(){
 
-  document.getElementById("main").innerHTML=`
+if(!state.user.admin){
 
-    <div class="section-title">
+alert(
+"ليس لديك صلاحية الدخول لهذه الصفحة."
+);
 
-      <h2>
-        الصلاحيات والمستخدمون
-      </h2>
-
-    </div>
-
-
-    <div class="card">
-
-      <p>
-        في النسخة الرسمية يمكن ربط هذه الشاشة
-        بقاعدة بيانات الموظفين والأقسام والصلاحيات.
-      </p>
-
-
-      <div class="table-wrap">
-
-        <table>
-
-          <tr>
-
-            <th>المستخدم</th>
-            <th>القسم</th>
-            <th>المواقع المسموح بها</th>
-            <th>الصلاحية</th>
-
-          </tr>
-
-
-          ${
-            Object
-            .values(mockUsers)
-            .map(
-              u=>`
-
-                <tr>
-
-                  <td>
-                    ${u.name}
-                  </td>
-
-                  <td>
-                    ${u.dept}
-                  </td>
-
-                  <td>
-                    ${u.areas.join("، ")}
-                  </td>
-
-                  <td>
-                    ${
-                      u.admin
-                      ?
-                      "مدير النظام"
-                      :
-                      "رفع بلاغ ومتابعة بلاغاته"
-                    }
-                  </td>
-
-                </tr>
-
-              `
-            )
-            .join("")
-          }
-
-        </table>
-
-      </div>
-
-    </div>
-
-  `;
+return;
 
 }
 
 
-/* =========================
-   النوافذ
-========================= */
+document.getElementById("main").innerHTML=`
+
+<div class="section-title">
+
+<h2>
+الصلاحيات والمستخدمون
+</h2>
+
+</div>
+
+
+<div class="card">
+
+
+<p>
+المستخدمون المسجلون في النسخة التجريبية.
+</p>
+
+
+<div class="table-wrap">
+
+<table>
+
+<tr>
+
+<th>
+الرقم الوظيفي
+</th>
+
+<th>
+المستخدم
+</th>
+
+<th>
+القسم
+</th>
+
+<th>
+الصلاحية
+</th>
+
+<th>
+المواقع
+</th>
+
+</tr>
+
+
+${
+Object.entries(mockUsers)
+.map(
+([id,u])=>`
+
+<tr>
+
+<td>
+${id}
+</td>
+
+<td>
+${u.name}
+</td>
+
+<td>
+${u.dept}
+</td>
+
+<td>
+
+${
+u.officer
+?
+badge("ضابط الاتصال")
+:
+u.admin
+?
+badge("مدير النظام")
+:
+"موظف"
+}
+
+</td>
+
+<td>
+${u.areas.join("، ")}
+</td>
+
+</tr>
+
+`
+)
+.join("")
+}
+
+</table>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+النوافذ
+========================================================= */
 
 function openModal(x){
 
-  document
-    .getElementById("modalBody")
-    .innerHTML=x;
+document
+.getElementById("modalBody")
+.innerHTML=x;
 
-  document
-    .getElementById("modal")
-    .style.display="flex";
+
+document
+.getElementById("modal")
+.style.display="flex";
+
 }
 
 
 function closeModal(){
 
-  document
-    .getElementById("modal")
-    .style.display="none";
+document
+.getElementById("modal")
+.style.display="none";
+
+
+signatureCanvas=null;
+
+signatureCtx=null;
+
+drawing=false;
+
 }
 
 
-/* =========================
-   تسجيل الخروج
-========================= */
+/* =========================================================
+تسجيل الخروج
+========================================================= */
 
 function logout(){
 
-  state.user=null;
+state.user=null;
 
-  app();
+app();
 
 }
 
 
-/* =========================
-   تشغيل النظام
-========================= */
+/* =========================================================
+إغلاق النافذة عند الضغط خارجها
+========================================================= */
+
+document
+.getElementById("modal")
+.addEventListener(
+"click",
+function(e){
+
+if(e.target===this){
+
+closeModal();
+
+}
+
+}
+);
+
+
+/* =========================================================
+تشغيل النظام
+========================================================= */
 
 app();
 
-</script>
-</body>
-</html>
 </script>
 
 </body>
